@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql
+    ports:
+      - ${DB_PORT}:3306
+    volumes:
+      - C:\WS\DWES\laravel\Proyecto_crud\datos:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD_ROOT}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_TADABASE}
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - ${PORT_PHPMYADMIN}:80
+    depends_on:
+      - mysql
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
