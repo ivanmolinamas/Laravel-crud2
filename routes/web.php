@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('proyectos.index');
 });
 
 Route::get('/dashboard', function () {
@@ -17,4 +17,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::view("index","proyectos.index")->name("index");
+Route::view("about", "proyectos.about")->name("about");
+Route::view("proyectos", "proyectos.proyectos")->name("proyectos");
+Route::view("alumnos", "alumnos.index")->name("alumnos");
+
 require __DIR__.'/auth.php';
+
+Route::resource("alumnos",\App\Http\Controllers\AlumnoController::class);

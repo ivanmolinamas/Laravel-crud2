@@ -27,8 +27,8 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
-        return redirect()->intended(route('dashboard', absolute: false));
+    // me redirie a index porque en el web.php tiene le nombre de index
+        return redirect()->intended(route('index', absolute: false));
     }
 
     /**
