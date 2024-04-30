@@ -12,11 +12,12 @@
         @endguest
 
         @auth
-                <h1 class="text-2xl text-gray-700">{{auth()->user()->name}}</h1>
-                <form action="{{route("logout")}}" method="POST">
+            <h1 class="text-2xl text-gray-700">{{auth()->user()->name}}</h1>
+            <form action="{{route("logout")}}" method="POST">
                 @csrf
-            <input class="btn btn-sm btn-error" type="submit" value="Logout">
-            @endauth
+                <input class="btn btn-sm btn-error" type="submit" value="Logout">
+            </form>
+        @endauth
 
     </div>
 </header>

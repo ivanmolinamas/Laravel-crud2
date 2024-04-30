@@ -1,16 +1,14 @@
 <x-layouts.layout>
-    <!-- div para centrar el formulario -->
-    <div class=" flex flex-row items-center justify-center  p-4 bg-gray-100 h-full ">
-        <div>
+    <x-auth-session-status class="mb-4" :status="session('status')"/>
+        <!-- div para centrar el formulario -->
+        <div class=" flex flex-col items-center justify-center  p-4 bg-gray-100 h-full ">
 
+            <h1 class="text-3xl">Nuevo alumno</h1>
+            <div class="w-4/4">
 
-            <h1 class="text-3xl">Nuevo usuario</h1>
-            <div class="w-3/4">
-
-                <form class="" method="POST" action="{{ route('alumnos.store') }}">
-
+                <form  method="POST" action="{{route('alumnos.store') }}" class="">
+                    <!-- añadimso el token-->
                     @csrf
-
                     <!-- nombre -->
                     <div>
                         <x-input-label for="nombre">Nombre</x-input-label>
@@ -23,6 +21,7 @@
                             @endforeach
                         @endif
                     </div>
+
                     <!-- dni -->
                     <div class="mt-4">
                         <x-input-label for="dni">DNI</x-input-label>
@@ -46,6 +45,7 @@
                         @endif
 
                     </div>
+
                     <!-- edad  -->
                     <div class="mt-4">
                         <x-input-label for="edad">Edad</x-input-label>
@@ -55,16 +55,15 @@
                                 <div class="text-sm text-red-600">{{$error}}</div>
                             @endforeach
                         @endif
-
                     </div>
-
 
                     <div class="flex items-center justify-end mt-4">
                         <input class="btn btn-accent" type="submit" value="Guardar"/>
+
                         <a href="{{route("alumnos.index")}}" class="btn btn-error">Cancelar</a>
                     </div>
                 </form>
             </div>
         </div>
-    </div>
+
 </x-layouts.layout>

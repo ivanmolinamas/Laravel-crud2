@@ -33,12 +33,11 @@ class AlumnoController extends Controller
      */
     public function store(StoreAlumnoRequest $request)
     {
-        //
         //  dd($request->input());
-
         $datos = $request->input(); //importamos los datos
         $alumno = new Alumno($datos); //cremos un nuevo alumno
         $alumno->save();               //lo guardamos
+        session()->flash("status","Se a creado el alumno $alumno->nombre");
         return redirect()->route('alumnos.index'); //redireccionamos
 
     }
@@ -56,7 +55,8 @@ class AlumnoController extends Controller
      */
     public function edit(Alumno $alumno)
     {
-        //
+        //returno la vista de edicion con el alumno
+        return view("alumnos.edit" , compact("alumno"));
     }
 
     /**
@@ -64,7 +64,13 @@ class AlumnoController extends Controller
      */
     public function update(UpdateAlumnoRequest $request, Alumno $alumno)
     {
-        //
+        //importamos los datos y los gaurdamos
+        $datos = $request->input(); //importamos los datos
+        $alumno->update($datos); //actualizmaos los datos
+        //añadimos variable flash para notificar de los cambios
+        session()->flash("status","Se han actualizado los datos de $alumno->nombre");
+        return redirect()->route("alumnos.index"); //devolvemos a la tabla
+
     }
 
     /**
@@ -72,6 +78,11 @@ class AlumnoController extends Controller
      */
     public function destroy(Alumno $alumno)
     {
-        //
+        // metodo borrar alumno
+        //mostramos mensaje primero, para no brrar el nombre
+        session()->flash("status", "Se ha borrado el alumno $alumno->nombre");
+        $alumno->delete();
+        return redirect()->route('alumnos.index');
+
     }
 }

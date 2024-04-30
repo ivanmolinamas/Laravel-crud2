@@ -24,6 +24,7 @@ class StoreAlumnoRequest extends FormRequest
         return [
             // aqui ponemos las reglas de validacion
             "nombre" => "string|required|min:1|max:50",
+            "dni"=>"min:8|max:11",
             "email" => "email|required|unique:alumnos",
             "edad" => "integer|between:10,60|required",
         ];

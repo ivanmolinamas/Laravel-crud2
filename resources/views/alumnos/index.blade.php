@@ -1,6 +1,19 @@
 <x-layouts.layout>
     <div class="bg-gray-100 h-full overflow-y-auto">
         <h1 class="text-3xl text-black/50 text-center"> Listado de alumnos</h1>
+        <!-- variable temporal de aviso de usuario creado -->
+        @if (session()->get("status"))
+            <div role="alert" class="alert alert-success w-4/12 ">
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
+                     viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span>{{session()->get("status")}}</span>
+            </div> <!-- se podria hacer por JS que solo se visualize 10segundos -->
+        @endif
+
+
         <a href="{{route("alumnos.create")}}" class="btn btn-xs btn-primary">Nuevo alumno</a>
         <div class="items-center h-full">
             <table class="table table-xs table-pin-rows table-pin-cols w-8/12">
@@ -10,8 +23,8 @@
                     <td>dni</td>
                     <td>email</td>
                     <td>edad</td>
-                    <th></th>
-                    <th></th>
+                    <th colspan="2">Acciones</th>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -23,14 +36,23 @@
                         <td>{{$alumno->edad}}</td>
                         <!-- editar -->
                         <td>
-                            <a href="{{route("alumnos.edit", $alumno->id)}}">
-                                editar
+                            <a href="{{route("alumnos.edit", $alumno->id)}}"
+                                class="text-blue-900">
+                                Editar
                             </a>
                         </td>
 
                         <!-- borrar -->
                         <td>
-                            borrar
+                            <form action="{{route("alumnos.destroy", $alumno->id)}}" method="POST" id="borrar"
+                            onsubmit="return confirmSubmit()">
+                                <!-- añadimos token-->
+                                @csrf
+                                <!--añadimos metodo-->
+                                @method('DELETE')
+                                <button type="submit" class="text-red-600">Eliminar</button>
+
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -39,4 +61,10 @@
             </table>
         </div>
     </div>
+    <script>
+        function confirmSubmit(){
+            var confirmacion = confirm("¿Quieres borrar este alumno? \nEsta operacion es irreversible")
+            return confirmacion;
+        }
+    </script>
 </x-layouts.layout>

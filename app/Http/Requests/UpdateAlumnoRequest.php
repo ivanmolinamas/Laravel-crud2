@@ -11,7 +11,7 @@ class UpdateAlumnoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateAlumnoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            // reglas de validacion a seguir
+            "nombre" => "string|required|min:1|max:50",
+            "dni"=> "min:8|max:11",
+            "email" => "email|required",
+            "edad" => "integer|between:10,60|required",
         ];
     }
 }
