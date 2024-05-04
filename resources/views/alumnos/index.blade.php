@@ -1,6 +1,6 @@
 <x-layouts.layout>
-    <div class="bg-gray-100 h-full overflow-y-auto">
-        <h1 class="text-3xl text-black/50 text-center"> Listado de alumnos</h1>
+    <div class="bg-gray-100 h-full overflow-y-auto flex flex-col items-center justify-center">
+        <h1 class="text-3xl text-black/50"> Listado de alumnos</h1>
         <!-- variable temporal de aviso de usuario creado -->
         @if (session()->get("status"))
             <div role="alert" class="alert alert-success w-4/12 ">
@@ -14,8 +14,8 @@
         @endif
 
 
-        <a href="{{route("alumnos.create")}}" class="btn btn-xs btn-primary">Nuevo alumno</a>
-        <div class="items-center h-full">
+        <a href="{{route("alumnos.create")}}" class="btn btn-xs btn-primary m-2">Nuevo alumno</a>
+        <div class="w-full flex justify-center">
             <table class="table table-xs table-pin-rows table-pin-cols w-8/12">
                 <thead>
                 <tr>
@@ -37,7 +37,7 @@
                         <!-- editar -->
                         <td>
                             <a href="{{route("alumnos.edit", $alumno->id)}}"
-                                class="text-blue-900">
+                               class="text-blue-900">
                                 Editar
                             </a>
                         </td>
@@ -45,24 +45,26 @@
                         <!-- borrar -->
                         <td>
                             <form action="{{route("alumnos.destroy", $alumno->id)}}" method="POST" id="borrar"
-                            onsubmit="return confirmSubmit()">
+                                  onsubmit="return confirmSubmit()">
                                 <!-- añadimos token-->
                                 @csrf
                                 <!--añadimos metodo-->
                                 @method('DELETE')
                                 <button type="submit" class="text-red-600">Eliminar</button>
-
                             </form>
                         </td>
                     </tr>
                 @endforeach
                 </tbody>
-
             </table>
         </div>
+        <div class="flex-col">
+            {{$alumnos->links()}}
+        </div>
+
     </div>
     <script>
-        function confirmSubmit(){
+        function confirmSubmit() {
             var confirmacion = confirm("¿Quieres borrar este alumno? \nEsta operacion es irreversible")
             return confirmacion;
         }

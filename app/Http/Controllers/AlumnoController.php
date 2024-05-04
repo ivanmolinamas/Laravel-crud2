@@ -14,7 +14,14 @@ class AlumnoController extends Controller
     public function index()
     {
         // recuperamos infomracion
-        $alumnos = Alumno::all();
+
+        //para no panginar y ver toda la info en una pagina:
+        //$alumnos = Alumno::all();
+
+        // para crear una paginacion realizmaos lo siguiente
+        $alumnos = Alumno::paginate(10); // 10 es el numero de alumnos por pagina
+
+        //devolvemos la vista
         return view("alumnos.index",compact("alumnos"));
 
     }
